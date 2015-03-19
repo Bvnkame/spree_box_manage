@@ -1,8 +1,7 @@
 module Spree
   module Api
-    class BoxdetailsController < ApplicationController
+    class BoxdetailsController < BaseApiController
       respond_to :json
-      skip_before_filter :verify_authenticity_token
       
       def index
         @bd = Bm::BoxDetail.all
@@ -10,9 +9,19 @@ module Spree
       end
       
       def create
-        @bd = Bm::BoxDetail.create(:product_id => params[:p_id], :box_id => params[:b_id])
-        flash[:notice] = 'User was successfully created.' if @bd.save
-        respond_with(@bd, default_template: :show, status: 201)
+        Bm::Box.find(params[:b_id])
+        Spree::Product.find(params[:p_id])
+        
+        @check_exist = Bm::BoxDetail.exists?(:spree_product_id => params[:p_id], :bm_box_id => params[:b_id])
+        
+        if @check_exist
+          render_error_douplicate
+          return
+        end
+        
+        @bd = Bm::BoxDetail.create(:spree_product_id => params[:p_id], :bm_box_id => params[:b_id])
+        
+        render :json => @bd
       end
     end
   end
