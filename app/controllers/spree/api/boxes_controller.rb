@@ -3,7 +3,7 @@ module Spree
     class BoxesController < BaseApiController
       respond_to :json
       skip_before_filter :verify_authenticity_token
-      before_action :authenticate_user, :except => :index
+      before_action :authenticate_user, :except => [ :index, :show ]
       
       def index
         @boxes = Bm::Box.all
