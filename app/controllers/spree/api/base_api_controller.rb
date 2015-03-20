@@ -4,6 +4,7 @@ module Spree
       #protect_from_forgery with: :exception
       rescue_from ActiveRecord::RecordNotFound, :with => :render_error_not_found
       #before_action :authenticate_user!
+      helper Bm::Api::ApiHelpers
       
       def render_error_basic(exception, message, status)
         render :json => { :message => message, :errors => {:base => [exception.message] } },

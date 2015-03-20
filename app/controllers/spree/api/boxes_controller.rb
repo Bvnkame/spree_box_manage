@@ -6,16 +6,28 @@ module Spree
       before_action :authenticate_user, :except => :index
       
       def index
-        @box = Bm::Box.all
-        render :json => @box
+        @boxes = Bm::Box.all
+        render "bm/index"
+      end
+      
+      def show
+        @box = Bm::Box.find(params[:id])
+        render "bm/show"
       end
       
       def create
         #Validate datas
-        Spree::User.find(params[:uid])
+        Spree::User.find(box_params[:spree_user_id])
+        Bm::Expert.find(box_params[:bm_expert_id])
         
-        @box = Bm::Box.create(:spree_user_id => params[:uid], :name => params[:name], :description => params[:desc], :comment => params[:cmt])
+        @box = Bm::Box.create(box_params)
         render :json => @box
+      end
+      
+      private
+      
+      def box_params
+        params.require(:box).permit(:spree_user_id, :bm_expert_id, :name, :image_url, :store, :time_cook, :description, :recipe_link, :difficulty)
       end
     end
   end
