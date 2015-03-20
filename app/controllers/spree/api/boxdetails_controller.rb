@@ -2,26 +2,32 @@ module Spree
   module Api
     class BoxdetailsController < BaseApiController
       respond_to :json
+      skip_before_filter :verify_authenticity_token
+      before_action :authenticate_user, :except => [ :index, :show ]
       
       def index
-        @bd = Bm::BoxDetail.all
-        respond_with @bd
+        @boxdetails = Bm::BoxDetail.all
+        render "bm/boxdetail/index"
+      end
+      
+      def show
+        @boxdetail = Bm::BoxDetail.find(params[:id])
+        render "bm/boxdetail/show"
       end
       
       def create
-        Bm::Box.find(params[:b_id])
-        Spree::Product.find(params[:p_id])
+        #Validate datas
+        Spree::Product.find(boxdetail_params[:spree_product_id])
+        Bm::Expert.find(boxdetail_params[:bm_expert_id])
         
-        @check_exist = Bm::BoxDetail.exists?(:spree_product_id => params[:p_id], :bm_box_id => params[:b_id])
-        
-        if @check_exist
-          render_error_douplicate
-          return
-        end
-        
-        @bd = Bm::BoxDetail.create(:spree_product_id => params[:p_id], :bm_box_id => params[:b_id])
-        
-        render :json => @bd
+        @boxdetail = Bm::BoxDetail.create(boxdetail_params)
+        render :json => @boxdetail
+      end
+      
+      private
+      
+      def boxdetail_params
+        params.require(:boxdetail).permit(:bm_box_id, :spree_product_id)
       end
     end
   end
