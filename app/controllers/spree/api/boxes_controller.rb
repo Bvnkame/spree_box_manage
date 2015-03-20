@@ -2,7 +2,7 @@ module Spree
   module Api
     class BoxesController < BaseApiController
       respond_to :json
-      skip_before_filter :verify_authenticity_token
+      spree
       before_action :authenticate_user, :except => [ :index, :show ]
       
       def index

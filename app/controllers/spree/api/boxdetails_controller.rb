@@ -18,7 +18,7 @@ module Spree
       def create
         #Validate datas
         Spree::Product.find(boxdetail_params[:spree_product_id])
-        Bm::Expert.find(boxdetail_params[:bm_expert_id])
+        Bm::Box.find(boxdetail_params[:bm_box_id])
         
         @boxdetail = Bm::BoxDetail.create(boxdetail_params)
         render :json => @boxdetail
