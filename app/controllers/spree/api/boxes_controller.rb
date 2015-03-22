@@ -24,6 +24,10 @@ module Spree
         render :json => @box
       end
       
+      def edit
+        
+      end
+      
       private
       
       def box_params
