@@ -1,6 +1,8 @@
 SpreeBoxManage
 ==============
 
+[![Build Status](https://travis-ci.org/Bvnkame/spree_box_manage.svg?branch=master)](https://travis-ci.org/Bvnkame/spree_box_manage)
+
 Introduction goes here.
 
 Installation
