@@ -3,7 +3,7 @@ module Spree
     class BoxesController < BaseApiController
       respond_to :json
       skip_before_filter :verify_authenticity_token
-      before_action :authenticate_user, :except => [ :index, :show ]
+      before_action :authenticate_user
       
       def index
         @boxes = Bm::Box.all
@@ -19,6 +19,7 @@ module Spree
         #Validate datas
         Spree::User.find(box_params[:spree_user_id])
         Bm::Expert.find(box_params[:bm_expert_id])
+        Bm::Difficulty.find(box_params[:difficulty_id])
         
         @box = Bm::Box.create(box_params)
         render :json => @box
@@ -31,7 +32,7 @@ module Spree
       private
       
       def box_params
-        params.require(:box).permit(:spree_user_id, :bm_expert_id, :name, :image_url, :store, :time_cook, :description, :recipe_link, :difficulty)
+        params.require(:box).permit(:spree_user_id, :bm_expert_id, :difficulty_id, :name, :image_url, :story, :time_cook, :description, :recipe_link, :difficulty_id)
       end
     end
   end

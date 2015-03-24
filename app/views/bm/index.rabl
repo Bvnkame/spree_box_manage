@@ -1,3 +1,4 @@
 collection @boxes
-attributes :id, :name, :description, :time_cook, :store, :image_url, :recipe_link
+attributes :id, :name, :time_cook, :story, :image_url, :recipe_link
 child(:experts) { attributes :id, :title, :name, :image_url, :comment }
+child(:products => :products) { attributes :id}
