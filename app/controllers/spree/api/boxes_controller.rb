@@ -3,14 +3,29 @@ module Spree
     class BoxesController < BaseApiController
       respond_to :json
       skip_before_filter :verify_authenticity_token
-      before_action :authenticate_user
+      before_action :authenticate_user, :except => [:index] 
       
       def index
-        if @current_user_roles == "admin"
-          @boxes = Bm::Box.all
+        if @current_api_user
+          @boxes = if @current_user_roles.include?("admin")
+            Bm::Box.all
+          else
+            Bm::Box.where(:spree_user_id => @current_api_user.id)
+          end
         else
-          @boxes = Bm::Box.where(:spree_user_id => @current_api_user.id)
+          #Find all admin ids
+          @list = Array.new
+          @has_user = false
+          Spree::User.all.each do |user|
+            if user.spree_roles.pluck(:name).include?("admin")
+              @has_user = true
+              @list.push(user.id)
+            end
+          end
+          #Select boxes of admins
+          @boxes = Bm::Box.where(:spree_user_id => @list)
         end
+        #Render to rabl json
         render "bm/index"
       end
       
