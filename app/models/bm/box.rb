@@ -12,8 +12,7 @@ module Bm
         :medium => "300x300>",
         :thumb => "100x100>"
       },
-      :default_url => "box/default_box.png",
-      :path => ":rails_root/public/spree/boxes/:id"
+      :default_url => "box/default_box.png"
       
     validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
   end
