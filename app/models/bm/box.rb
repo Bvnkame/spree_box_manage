@@ -6,14 +6,8 @@ module Bm
     belongs_to :difficulties, :class_name => "Bm::Dificulty", foreign_key: 'difficulty_id'
     belongs_to :experts, :class_name => "Bm::Expert", foreign_key: 'bm_expert_id'
     has_many :boxdetails, :class_name => "Bm::BoxDetail", foreign_key: 'bm_box_id'
-
-    has_attached_file :cover,
-      :styles => {
-        :medium => "300x300>",
-        :thumb => "100x100>"
-      },
-      :default_url => "box/default_box.png"
-      
-    validates_attachment_content_type :cover, :content_type => /\Aimage\/.*\Z/
+  
+    has_many :covers, as: :viewable, source: :images, dependent: :destroy, class_name: "Bm::Imagecover"
+    #alias_method :images, :master_images
   end
 end
