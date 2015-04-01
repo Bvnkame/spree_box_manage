@@ -1,13 +1,13 @@
 module Bm
-  class Imagecover < Spree::Asset
+  class Imageavatar < Spree::Asset
     validate :no_attachment_errors
 
     has_attached_file :attachment,
                       styles: { mini: '60x60>', normal: '200x200>'},
                       default_style: :box,
-                      url: '/spree/boxes/:id/:style/:basename.:extension',
-                      path: ':rails_root/public/spree/boxes/:id/:style/:basename.:extension',
-                      default_url: '/box/default_box.png',
+                      url: '/spree/avatars/:id/:style/:basename.:extension',
+                      path: ':rails_root/public/spree/avatars/:id/:style/:basename.:extension',
+                      default_url: '/box/default_avatar.png',
                       convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
     validates_attachment :attachment,
       :presence => true,

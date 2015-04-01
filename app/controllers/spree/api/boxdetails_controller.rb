@@ -23,6 +23,11 @@ module Spree
         @boxdetail = Bm::BoxDetail.create(boxdetail_params)
         render :json => @boxdetail
       end
+
+      def destroy
+        Bm::BoxDetail.find(params[:id]).destroy
+        render nothing: true
+      end
       
       private
       
