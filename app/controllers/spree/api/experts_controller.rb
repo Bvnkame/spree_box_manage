@@ -23,7 +23,7 @@ module Spree
       private
       
       def expert_params
-        params.require(:expert).permit(:name, :title, :comment, :image_url)
+        params.require(:expert).permit(:name, :title, :comment)
       end
     end
   end

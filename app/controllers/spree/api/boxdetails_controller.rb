@@ -7,12 +7,12 @@ module Spree
       
       def index
         @boxdetails = Bm::BoxDetail.all
-        render "bm/boxdetail/index"
+        render nothing: true
       end
       
       def show
         @boxdetail = Bm::BoxDetail.find(params[:id])
-        render "bm/boxdetail/show"
+        render nothing: true
       end
       
       def create

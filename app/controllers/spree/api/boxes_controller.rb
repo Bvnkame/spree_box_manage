@@ -26,12 +26,12 @@ module Spree
           @boxes = Bm::Box.where(:spree_user_id => @list)
         end
         #Render to rabl json
-        render "bm/index"
+        render "bm/box/index"
       end
       
       def show
         @box = Bm::Box.find(params[:id])
-        render "bm/show"
+        render "bm/box/show"
       end
       
       def create
@@ -39,7 +39,6 @@ module Spree
 
         Spree::User.find(box_params[:spree_user_id])
         Bm::Expert.find(box_params[:bm_expert_id])
-        Bm::Difficulty.find(box_params[:difficulty_id])
 
         @box = Bm::Box.create(box_params)
         render :json => @box
@@ -54,14 +53,8 @@ module Spree
       def box_params
         params.require(:box).permit(
           :bm_expert_id, 
-          :difficulty_id, 
           :name, 
-          :image_url, 
           :story, 
-          :time_cook, 
-          :description, 
-          :recipe_link, 
-          :difficulty_id
           ).merge(spree_user_id: @current_api_user.id)
       end
     end
