@@ -7,7 +7,7 @@ module Bm
                       default_style: :box,
                       url: '/spree/boxes/:id/:style/:basename.:extension',
                       path: ':rails_root/public/spree/boxes/:id/:style/:basename.:extension',
-                      default_url: '/box/default_box.png',
+                      default_url: 'box/default_box.png',
                       convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
     validates_attachment :attachment,
       :presence => true,
