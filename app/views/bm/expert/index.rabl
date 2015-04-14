@@ -1,6 +1,6 @@
 collection @experts
 attributes :id, :name, :title, :comment
 
-child(:avatars => :image) {
+child(:avatar => :image) {
   extends "bm/imageavatars/show"
 }
