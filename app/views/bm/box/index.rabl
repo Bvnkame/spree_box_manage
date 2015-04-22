@@ -5,7 +5,7 @@ child(:covers => :image) {
   extends "bm/imagecovers/show"
 }
 
-child(:experts => :expert) { 
+child(:expert => :expert) { 
   extends "bm/expert/show"
 }
 
