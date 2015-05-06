@@ -8,5 +8,12 @@ module Bm
 
     def deleted?
     end
+
+    def copy_data(expert)
+    	self.name = expert.name
+    	self.title = expert.title
+    	self.comment = expert.comment
+    	self.save!
+    end
   end
 end
