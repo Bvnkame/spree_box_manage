@@ -11,5 +11,13 @@ module Bm
 
     def deleted?
     end
+
+    def total_price
+        total = 0
+        self.products.each do |product|
+            total += product.dish_price.to_f
+        end
+        total
+    end
   end
 end
